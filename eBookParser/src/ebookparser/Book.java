@@ -5,7 +5,6 @@
  */
 package ebookparser;
 
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.SortedMap;
@@ -20,7 +19,7 @@ public class Book {
     TreeMap<String, Integer> words;
 
     public Book() {
-        words = new TreeMap();
+        words = new TreeMap<String, Integer>();
     }
     
     public void wordExists(String word) {   
@@ -43,9 +42,10 @@ public class Book {
     //}
     
     public void FixEntries(){        
-        Iterator it = words.entrySet().iterator();
+        Iterator<?> it = words.entrySet().iterator();
         while(it.hasNext()){
-            Map.Entry pair = (Map.Entry)it.next();
+            @SuppressWarnings("rawtypes")
+			Map.Entry pair = (Map.Entry)it.next();
             if(pair.getKey().equals("")){
                 it.remove();
             }
@@ -55,7 +55,7 @@ public class Book {
         }
     }
 
-    public SortedMap getHashMap() {
+    public SortedMap<String, Integer> getHashMap() {
         FixEntries();
         return words;
     }
